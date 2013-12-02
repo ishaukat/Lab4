@@ -217,7 +217,7 @@ void vitalsigns :: temperature() {
 //Hypothermia is defined as a drop in body temperature below 95 degrees Fahrenheit
 // in women, the stage of the menstrual cycle
 
-//srand(time(NULL));
+
 range = rand () % 98;
 //cout << "Our unit of time is:" << x << endl;
 

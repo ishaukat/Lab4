@@ -89,7 +89,7 @@ protected:
     int time_sec;
     int time_min;
     int choice;
-    //int range;    //common variable in all classes
+
 
 public:
 
