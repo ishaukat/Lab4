@@ -1,3 +1,8 @@
+/* physicaltest.cpp
+ *
+ *  Created on: Nov 30, 2013
+ *      Author: Home-Pc
+ */
 //============================================================================
 // Name        : Lab4.cpp
 // Author      : Iqra
@@ -13,13 +18,15 @@
 #include <cstdlib>
 #include <math.h>
 #include "physicaltest.hpp"
+//#include "project.hpp"
+#include <fstream>
 
 using namespace std;
 
 //base class main
 
-int myfirst_name;
-int mylast_name;
+string myfirstname;
+string mylastname;
 char myprofession;
 char D;
 char N;
@@ -27,23 +34,23 @@ char R;
 
 //Base Class Main (functions)
 
-PhysicalTest :: PhysicalTest() {
+PhysicalTest :: PhysicalTest() {  //constructor
 
-first_name = myfirst_name;
-last_name = mylast_name;
+firstname = myfirstname;
+lastname = mylastname;
 profession = myprofession;
 range = 0;
 age = 0;
-
+time=0;
 }
 
-void PhysicalTest :: display() {
+void PhysicalTest :: check() {
 
 cout << "Please enter the first name of the patient:" << endl;
-cin >> myfirst_name;
+cin >> myfirstname;
 
 cout << "Please enter the last name of the patient:" << endl;
-cin >> mylast_name;
+cin >> mylastname;
 
 cout << "Please enter (F) if the patient is female and (M) if the patient is male:" << endl;
 cin >> gender;
@@ -85,7 +92,7 @@ cout << "Invalid profession:" << endl; }
 
 //1st Derived Class Main (functions) = URINE
                 //when we declare variables as protected then we dont need base constructor in derive class constructors
-void urine :: check_urine(int pH, int color, int odor) {
+void urine :: check_urine() {
 
 // making values by my own to test them
 //the acidity of urine, depending on diet, is about 5 to 7
@@ -96,12 +103,12 @@ void urine :: check_urine(int pH, int color, int odor) {
 cout << "Checking the pH value of urine to find its acitiy:" << endl;
 cin >> pH;
 
-while ((pH > 5) | (pH < 7)) {
+while (pH > 5 | pH < 7) {
 
-if ((pH == 0) | (pH !=5)) {
+if (pH == 0 | pH !=5) {
 cout << "Abnormal: increased risk of developing urinary stones:" << endl; }
 
-else if ((pH == 5) | (pH == 7)) {
+else if (pH == 5 | pH == 7) {
 cout << "Normal: There is no such disease" << endl; }
 
 else if (pH > 7) {
@@ -151,7 +158,7 @@ cout << "Normal: No smell:" << endl;}   //urine is normal
 
 }
 
-void urine :: amount_of_urine(int sugar, int fluid, int Liter) {
+void urine :: amount_of_urine(int Liter) {
 
 //urine control both the amount and the composition of the extracellular fluid in the body
 //kidney tubule regulation of the salt and water in our bodies is the most important factor in determining urine volume
@@ -162,20 +169,38 @@ void urine :: amount_of_urine(int sugar, int fluid, int Liter) {
 //Producing too much or too little urine needs medical attention.
 //Polyuria is a condition of excessive production of urine (> 2.5 L/day), oliguria when < 400 mL are produced, and anuria one of < 100 mL per day.
 
-cout << "Average urine rate in humans is: 1-2L/perday" << Liter << endl;
+fluid = 0;
+cout << "Average urine rate in humans is: 1-2L/perday" << fluid << endl;
 
-while ((range == 1) | (range == 2)) {
+
+while (range == 1 | range == 2) {
 
 switch (range) {
 
 case 0:
-range = 1 && 2;
-cout << "Normal Urine" << endl;
+
+if (range == 1) {
+fluid = 1;
+cout << "Normal Urine << Person consume enough fluid in a day: unit is  << [ << 1-2L/perday << ]" << fluid << endl; }
+else {
+cout << "NOT ENOUGH FLUID TAKEN";
+}
 break;
 
 case 1:
-if (range > 2.5) {
-cout << "Abnormal: Excessive production of urine:" << endl;}
+
+if (range == 2) {
+fluid = 2;
+cout << "Normal Urine << Person consume enough fluid in a day: unit is  << [ << 1-2L/perday << ]" << fluid << endl; }
+else {
+cout << "NOT ENOUGH FLUID TAKEN";
+}
+break;
+
+case 2:
+if (range >= 2.5) {
+fluid = 0;
+cout << "Abnormal: Excessive production of urine:" << fluid << endl;}
 else {
 cout << "Invalid!!" << endl; }
 break;
@@ -185,7 +210,7 @@ break;
 
 //FUNCTIONS of 2nd Derived Class (main) = vitalsigns
 
-void vitalsigns :: temperature(int recent_activity, int time) {
+void vitalsigns :: temperature() {
 
 // Normal body temperature can range from 97.8 degrees F (or Fahrenheit, equivalent to 36.5 degrees C, or Celsius) to 99 degrees F (37.2 degrees C) for a healthy adult
 //A fever is indicated when body temperature rises about one degree or more over the normal temperature of 98.6 degrees
@@ -202,7 +227,7 @@ cin >> time;
 cout << "The patient body condition at that specific time:rest/exercise/stress" << endl;
 cin >> recent_activity;
 
-while ((range > 97.8) | (range < 99)) {
+while (range > 97.8 | range < 99) {
 cout << "Select any number between this range" << endl;
 cin >> range;
 }
@@ -217,7 +242,7 @@ cout << "Tray again the range and select a right number" << endl;  }
 
 }
 
-void vitalsigns :: pulse_rate(int heart_rate, char body_cond, int time_sec, int time_min, int choice) {
+void vitalsigns :: pulse_rate() {
 //just picking a random genders and calculating their pulses at different body positons
 //also picking random numbers to test them
 //those values are assigned by me and got it from internet
@@ -225,7 +250,7 @@ void vitalsigns :: pulse_rate(int heart_rate, char body_cond, int time_sec, int 
 //When you feel your pulse, count the number of beats in 15 seconds.
 //Multiply this number by 4 to calculate your beats per minute.
 //only testing on "TEENAGES" AGE=18-20
-
+   //srand(time(NULL));     //need a time in seconds
    heart_rate = rand () % 80;
 
    time_min=0;
@@ -246,28 +271,36 @@ switch (choice) {
 
 case 1:
 cout << "Male" << endl;
-cout << heart_rate << endl;
 
 if (body_cond == 'R') {
-cout << "The person is resting:" << body_cond << endl; }
+cout << "The person is resting:" << endl;
+cout << "The specific time at that time is:" << time_min << endl;
+cout << "The heart rate of the person:" << heart_rate << endl;  }
+
 else if (body_cond == 'E') {
-cout << "The person is resting:" << body_cond << endl;  }
+cout << "The person is resting:" << endl;
+cout << "The specific time at that time is:" << time_min << endl;
+   cout << "The heart rate of the person:" << heart_rate << endl;}
+
 else {
 cout <<	"NOTHING" << endl; }
-
 break;
 
 case 2:
 cout << "Female" << endl;
-cout << heart_rate << endl;
 
    if (body_cond == 'R') {
-cout << "The person is resting:" << body_cond << endl; }
-   else if (body_cond == 'E') {
-cout << "The person is resting:" << body_cond << endl;  }
-else {
-cout <<	"NOTHING" << endl; }
+cout << "The person is resting:" << endl;
+cout << "The specific time at that time is:" << time_min << endl;
+cout << "The heart rate of the person:" << heart_rate << endl;   }
 
+   else if (body_cond == 'E') {
+cout << "The person is resting:" << endl;
+cout << "The specific time at that time is:" << time_min << endl;
+cout << "The heart rate of the person:" << heart_rate << endl;    }
+
+   else {
+cout <<	"NOTHING" << endl; }
 break;
 
 default:
@@ -276,7 +309,7 @@ cout << "Invalid" << endl;
 
 }
 
-void vitalsigns :: respiration_rate(int num_breath) {
+void vitalsigns :: respiration_rate() {
 //Normal respiration rates for an adult person at rest range from 12 to 16 breaths per minute.
 
 while ((range >= 12) | (range <= 16)) {
@@ -287,7 +320,7 @@ cin >> range;
 if (range == 12) {
 cout << "Normal"; }
 else if (range == 13) {
-cout << "Normal"; }
+cout << "Norml"; }
 else if (range ==14) {
 cout << "Normal"; }
 else if (range==15) {
@@ -299,7 +332,7 @@ cout << "ABNORMAL: SELECT A RIGHT NUMBER AGAIN"; }
 }
 }
 
-void BloodPressure  :: check_press(int num) {
+void BloodPressure  :: check_press() {
 //there are two types of blood pressure
 //systolic= hypertension (high)     &  hisostylic= hypertensive(low)
 //Two numbers are recorded when measuring blood pressure
@@ -327,7 +360,7 @@ cout << "NORMAL" << endl; }
 break;
 
 case 1:
-if (((num >= 120) | (num <= 139)) && ((num >= 80) |  (num <= 89))) {
+if ((num >= 120 | num <= 139) && (num >= 80 |  num <= 89)) {
 cout << "ABNORMAL: SYSTOLIC [mm Hg] << & << ABNORMAL: DISYSTOLIC [mm Hg] << (PRE-HYPERTENSION)"; }
 else {
 cout << "NORMAL" << endl; }

@@ -1,15 +1,17 @@
 /*
- * physicaltest.hpp
+ /*physicaltest.hpp
  *
- *  Created on: Nov 23, 2013
+ *  Created on: Nov 30, 2013
  *      Author: Home-Pc
  */
 
 #ifndef PHYSICALTEST_HPP_
 #define PHYSICALTEST_HPP_
+
 #include <iostream>
 #include <string>
-#include <ctime>
+#include "project.hpp"
+
 
 using namespace std;
 
@@ -21,21 +23,22 @@ protected:
 //variables for base class (will go directly to derived classes)
 //common data member variables which will be used directly to other inherited classes from base class
     string gender;   //will tell if it is Female or Male
-    string first_name;  //will tell the patient first name (if person come for check-up many times)
-    string last_name;   //will tell the patient last name
+    string firstname;  //will tell the patient first name (if person come for check-up many times)
+    string lastname;   //will tell the patient last name
     char profession; //will select the profession of the tester doctor/nurse/radiologist
     int range;    //estimate the range of each test if it is within range=normal, if not=abnormal
     int age;    //age does matter (as young adults have different rates then olders)
-
-
+    int time;  //time fluctuates so it will check that if patient come to first visist and will automatically tell the doctor that what could be the next visit of that patient (automatically)
+    //PhysicalTest *ptr;
 public:
 
             //constructor of base class (main function)
     PhysicalTest();
 
     //functions of base class (common in all derived class)
-    void display(); //function ask the user to diplay patients (all member variables)
+    void check(); //function ask the user to diplay patients (all member variables)
     void annotation(); //function will ask the user to select the person who will do a test (doctor/nurse/radiologist)
+    //void displayfile(); //will display the functions and its parametesr onto the file will go to all derived classes
 
 };
 
@@ -49,6 +52,8 @@ protected:
 //Data member variables for 1st derived class (only specific for urine)
 
   int pH; //pH value (shows the acidity of the urine)
+  int color;
+  int odor;
   int protein; //protein
   int sugar; //Sugar (glucose)
   int fluid; //water level
@@ -58,11 +63,12 @@ public:
 
     //functions for 1st derived class = urine (only use for this class)
 
-    void check_urine(int pH, int color, int odor); //check the values of pH/color/odor and decide if they are normal or abnormal
+    void check_urine(); //check the values of pH/color/odor and decide if they are normal or abnormal
     //void pHvalue(int pH);
     //void color();
     //void odor();
-    void amount_of_urine(int sugar, int fluid, int Lite);
+    void amount_of_urine(int Liter);
+    void displayfile(); //will display the functions and its parametesr onto the file
  };
 
 //2nd Derived Class = vital sings
@@ -80,19 +86,19 @@ protected:
     int recent_activity;
     int time;
     int heart_rate;
-    int num_breath;
     int time_sec;
     int time_min;
     int choice;
-    //int range;    //estimate the range of each test if it is within range=normal, if not=abnormal
+    //int range;    //common variable in all classes
 
 public:
 
     //functions for 2nd derived class = vitalsigns (only use for this class)
 
-    void temperature(int recent_activity, int time);
-    void pulse_rate(int heart_rate, char body_cond, int time_sec, int time_min, int choice);
-    void respiration_rate(int num_breath);
+    void temperature();
+    void pulse_rate();
+    void respiration_rate();
+    void displayfile(); //will display the functions and its parametesr onto the file
 
 };
 
@@ -105,14 +111,16 @@ protected:
 
     //Data member variables for 3rd derive class = Blood pressure
 
-    int number; //tells the lower and upper number of blood pressure
+    int num; //tells the lower and upper number of blood pressure
 
 public:
 
     //functions for 3rd derive class: Blood pressure (only use for this class)
 
-        void check_press(int num); //check systolic/hisostylic body pressures
+        void check_press(); //check systolic/hisostylic body pressures
+        void displayfile(); //will display the functions and its parametesr onto the file
 
 };
 
 #endif /* PHYSICALTEST_HPP_ */
+
