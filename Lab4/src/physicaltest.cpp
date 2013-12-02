@@ -225,7 +225,7 @@ void vitalsigns :: pulse_rate(int heart_rate, char body_cond, int time_sec, int 
 //When you feel your pulse, count the number of beats in 15 seconds.
 //Multiply this number by 4 to calculate your beats per minute.
 //only testing on "TEENAGES" AGE=18-20
-   //srand(time(NULL));     //need a time in seconds
+
    heart_rate = rand () % 80;
 
    time_min=0;

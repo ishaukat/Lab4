@@ -26,7 +26,7 @@ protected:
     char profession; //will select the profession of the tester doctor/nurse/radiologist
     int range;    //estimate the range of each test if it is within range=normal, if not=abnormal
     int age;    //age does matter (as young adults have different rates then olders)
-    //int time;  //time fluctuates so it will check that if patient come to first visist and will automatically tell the doctor that what could be the next visit of that patient (automatically)
+
 
 public:
 
